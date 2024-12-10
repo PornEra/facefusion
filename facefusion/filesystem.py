@@ -34,9 +34,6 @@ def is_file(file_path : str) -> bool:
 
 
 def is_directory(directory_path : str) -> bool:
-	if not directory_path.startswith('/facefusion/'):
-		directory_path = f'/facefusion/{directory_path}'
-
 	return bool(directory_path and os.path.isdir(directory_path))
 
 
@@ -122,9 +119,6 @@ def remove_file(file_path : str) -> bool:
 
 
 def create_directory(directory_path : str) -> bool:
-	if not directory_path.startswith('/facefusion/'):
-		directory_path = f'/facefusion/{directory_path}'
-
 	if directory_path and not is_file(directory_path):
 		Path(directory_path).mkdir(parents = True, exist_ok = True)
 		return is_directory(directory_path)
