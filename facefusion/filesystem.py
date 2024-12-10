@@ -34,6 +34,9 @@ def is_file(file_path : str) -> bool:
 
 
 def is_directory(directory_path : str) -> bool:
+	if not directory_path.startswith('/facefusion/'):
+		directory_path = f'/facefusion/{directory_path}'
+
 	return bool(directory_path and os.path.isdir(directory_path))
 
 
@@ -119,6 +122,9 @@ def remove_file(file_path : str) -> bool:
 
 
 def create_directory(directory_path : str) -> bool:
+	if not directory_path.startswith('/facefusion/'):
+		directory_path = f'/facefusion/{directory_path}'
+
 	if directory_path and not is_file(directory_path):
 		Path(directory_path).mkdir(parents = True, exist_ok = True)
 		return is_directory(directory_path)
@@ -126,6 +132,9 @@ def create_directory(directory_path : str) -> bool:
 
 
 def list_directory(directory_path : str) -> Optional[List[str]]:
+	if not directory_path.startswith('/facefusion/'):
+		directory_path = f'/facefusion/{directory_path}'
+
 	if is_directory(directory_path):
 		files = os.listdir(directory_path)
 		files = [ Path(file).stem for file in files if not Path(file).stem.startswith(('.', '__')) ]
@@ -134,6 +143,9 @@ def list_directory(directory_path : str) -> Optional[List[str]]:
 
 
 def remove_directory(directory_path : str) -> bool:
+	if not directory_path.startswith('/facefusion/'):
+		directory_path = f'/facefusion/{directory_path}'
+
 	if is_directory(directory_path):
 		shutil.rmtree(directory_path, ignore_errors = True)
 		return not is_directory(directory_path)
