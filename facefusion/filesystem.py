@@ -132,9 +132,6 @@ def create_directory(directory_path : str) -> bool:
 
 
 def list_directory(directory_path : str) -> Optional[List[str]]:
-	if not directory_path.startswith('/facefusion/'):
-		directory_path = f'/facefusion/{directory_path}'
-
 	if is_directory(directory_path):
 		files = os.listdir(directory_path)
 		files = [ Path(file).stem for file in files if not Path(file).stem.startswith(('.', '__')) ]
@@ -143,9 +140,6 @@ def list_directory(directory_path : str) -> Optional[List[str]]:
 
 
 def remove_directory(directory_path : str) -> bool:
-	if not directory_path.startswith('/facefusion/'):
-		directory_path = f'/facefusion/{directory_path}'
-
 	if is_directory(directory_path):
 		shutil.rmtree(directory_path, ignore_errors = True)
 		return not is_directory(directory_path)
