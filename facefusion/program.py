@@ -5,7 +5,7 @@ import facefusion.choices
 from facefusion import config, metadata, state_manager, wording
 from facefusion.common_helper import create_float_metavar, create_int_metavar
 from facefusion.execution import get_execution_provider_choices
-from facefusion.filesystem import list_directory
+from facefusion.filesystem import list_directory, is_directory
 from facefusion.jobs import job_store
 from facefusion.processors.core import get_processors_modules
 from facefusion.program_helper import remove_args, suggest_face_detector_choices
@@ -123,7 +123,8 @@ def create_output_creation_program() -> ArgumentParser:
 def create_processors_program() -> ArgumentParser:
 	program = ArgumentParser(add_help = False)
 	available_processors = list_directory('/facefusion/facefusion/processors/modules')
-	print(os.listdir('/facefusion/facefusion/processors/modules'))
+	print(is_directory('/facefusion/facefusion/processors/modules'))
+	# print(os.listdir('/facefusion/facefusion/processors/modules'))
 
 	group_processors = program.add_argument_group('processors')
 	group_processors.add_argument('--processors', help = wording.get('help.processors').format(choices = ', '.join(available_processors)), default = config.get_str_list('processors.processors', 'face_swapper'), nargs = '+')
@@ -135,7 +136,7 @@ def create_processors_program() -> ArgumentParser:
 
 def create_uis_program() -> ArgumentParser:
 	program = ArgumentParser(add_help = False)
-	available_ui_layouts = list_directory('/facefusion/facefusion/uis/layouts')
+	available_ui_layouts = list_directory('facefusion/uis/layouts')
 
 	group_uis = program.add_argument_group('uis')
 	group_uis.add_argument('--open-browser', help = wording.get('help.open_browser'), action = 'store_true', default = config.get_bool_value('uis.open_browser'))
